@@ -23,16 +23,28 @@ let placesLayer = new VectorLayer({
 //     )
 //   })
 
-axios.get('http://127.0.0.1:3000/places')
+fetch('http://127.0.0.1:3000/places')
   .then(response => {
-		let res = response.data.data
-		console.log(res)
+    return response.json()
+  })
+  .then(jsonResponse => {
     placesLayer.setSource(
       new VectorSource({
-        features: new GeoJSON().readFeatures(res)
+        features: new GeoJSON().readFeatures(jsonResponse.data)
       })
     )
   })
+
+// axios.get('http://127.0.0.1:3000/places')
+//   .then(response => {
+// 		let res = response.data.data
+// 		console.log(res)
+//     placesLayer.setSource(
+//       new VectorSource({
+//         features: new GeoJSON().readFeatures(res)
+//       })
+//     )
+//   })
 
 const map = new Map({
   target: 'map',
