@@ -1,26 +1,38 @@
-import './style.css';
-import {Map, View} from 'ol';
-import TileLayer from 'ol/layer/Tile';
-import VectorLayer from 'ol/layer/Vector';
-import {OSM, Vector as VectorSource} from 'ol/source';
-import GeoJSON from 'ol/format/GeoJSON';
-import XYZ from 'ol/source/XYZ';
+import './style.css'
+import {Map, View} from 'ol'
+import TileLayer from 'ol/layer/Tile'
+import VectorLayer from 'ol/layer/Vector'
+import {OSM, Vector as VectorSource} from 'ol/source'
+import GeoJSON from 'ol/format/GeoJSON'
+import XYZ from 'ol/source/XYZ'
+import axios from 'axios'
 
 let placesLayer = new VectorLayer({
   source: new VectorSource(),
-});
+})
 
-fetch('http://127.0.0.1:5173/assets/pariwisata_geojson.geojson')
-  .then((response) => {
-    return response.json();
-  })
-  .then((jsonResponse) => {
+// fetch('http://127.0.0.1:5173/assets/pariwisata_geojson.geojson')
+//   .then((response) => {
+//     return response.json()
+//   })
+//   .then((jsonResponse) => {
+//     placesLayer.setSource(
+//       new VectorSource({
+//         features: new GeoJSON().readFeatures(jsonResponse)
+//       })
+//     )
+//   })
+
+axios.get('http://127.0.0.1:3000/places')
+  .then(response => {
+		let res = response.data.data
+		console.log(res)
     placesLayer.setSource(
       new VectorSource({
-        features: new GeoJSON().readFeatures(jsonResponse)
+        features: new GeoJSON().readFeatures(res)
       })
-    );
-  });
+    )
+  })
 
 const map = new Map({
   target: 'map',
@@ -40,4 +52,4 @@ const map = new Map({
     center: [107.55823133957851, -6.969551804745719],
     zoom: 13
   })
-});
+})
