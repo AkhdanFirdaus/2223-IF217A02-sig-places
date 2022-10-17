@@ -6,3 +6,5 @@ const { placesValidators, validate } = require('../middlewares/places_input_vali
 
 places.get('/', controller.place.readAll)
 places.post('/', placesValidators, validate, controller.place.create)
+
+module.exports = places

@@ -1,4 +1,4 @@
-const { Client } = require('pg')
+const { Pool } = require('pg')
 
 const config = {
   user: 'sig-user',
@@ -8,4 +8,8 @@ const config = {
   port: '5432'
 }
 
-module.exports = new Client(config)
+const db = new Pool({
+  connectionString: `postgresql://${config.user}:${config.password}@${config.host}:${config.port}/${config.database}`
+})
+
+module.exports = db

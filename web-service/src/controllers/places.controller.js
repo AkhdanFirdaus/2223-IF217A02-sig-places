@@ -1,6 +1,11 @@
 const model = require('../models')
 
-exports.create = async (req, res) => {}
+exports.create = async (req, res) => {
+  return res.status(200).json({
+    success: true,
+    message: 'Begini'
+  })
+}
 
 exports.readAll = async (req, res) => {
   try {
