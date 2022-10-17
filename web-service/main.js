@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const port = 3000
-const client = require('./helpers/db')
+const client = require('./src/helpers/db.helper')
 
 const getPlaces = require('./features/places/get')
 const postPlace = require('./features/places/post')
@@ -20,7 +20,7 @@ app.get('/places', getPlaces)
 app.post('/places', postPlace)
 
 app.listen(port, () => {
-	client.connect(err => {
+  client.connect(err => {
     if (err) throw err
     console.log('Connected!')
   })
