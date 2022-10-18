@@ -37,7 +37,7 @@ let placesLayer = new VectorLayer({
 
 axios.get('http://127.0.0.1:3000/places')
   .then(response => {
-		let res = response.data.data
+		let res = response.data.results
     placesLayer.setSource(
       new VectorSource({
         features: new GeoJSON().readFeatures(res)
