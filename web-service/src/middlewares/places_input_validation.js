@@ -3,7 +3,8 @@ const { body, validationResult } = require('express-validator')
 const placesValidators = [
   body('nama_tempat').isLength({min: 4}),
   body('kategori').isNumeric(),
-  body('koordinat').optional(),
+  body('longitude').optional(),
+  body('latitude').optional(),
   body('lahan').optional(),
 ]
 

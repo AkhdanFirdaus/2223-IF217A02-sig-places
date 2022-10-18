@@ -2,6 +2,12 @@ const db = require('../helpers/db.helper')
 
 const table = 'jabar.pariwisata'
 
+exports.insertPlace = (data) => {
+  const sql = `INSERT INTO ${table} (nama_tempat, kategori, koordinat) VALUES($1, $2, ST_GeomFromText('POINT($3 $4)', 4326)) RETURNING *;`
+  const params = [data.nama_tempat, data.kategori, data.longitude, data.latitude]
+  return db.query(sql, params)
+}
+
 exports.findAllPlaces = () => {
   const sql = `SELECT JSONB_BUILD_OBJECT(
 		'type', 'FeatureCollection',

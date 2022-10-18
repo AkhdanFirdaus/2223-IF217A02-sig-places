@@ -1,10 +1,20 @@
 const model = require('../models')
 
 exports.create = async (req, res) => {
-  return res.status(200).json({
-    success: true,
-    message: 'Begini'
-  })
+  try {
+    const insert = await model.places.insertPlace(req.body)
+    const place = insert.rows[0]
+    return res.json({
+      success: true,
+      message: 'Create Place successfully',
+      results: place
+    })
+  } catch (err) {
+    return res.status(500).json({
+      success: true,
+      message: `Error: ${err.message}`
+    })
+  }
 }
 
 exports.readAll = async (req, res) => {
