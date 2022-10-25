@@ -45,6 +45,10 @@ axios.get('http://127.0.0.1:3000/places')
     )
   })
 
+  const thematicLayers = new VectorLayer({
+    source: new VectorSource()
+  })
+
 const map = new Map({
   target: 'map',
   layers: [
@@ -57,6 +61,7 @@ const map = new Map({
       source: new OSM(),
     }),
     placesLayer,
+    thematicLayers,
   ],
   view: new View({
     projection: 'EPSG:4326',
