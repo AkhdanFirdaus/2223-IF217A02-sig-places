@@ -6,6 +6,9 @@ import XYZ from 'ol/source/XYZ';
 import VectorSource from 'ol/source/Vector';
 import VectorLayer from 'ol/layer/Vector';
 import GeoJSON from 'ol/format/GeoJSON';
+import Style from 'ol/style/Style';
+import Fill from 'ol/style/Fill';
+import Stroke from 'ol/style/Stroke';
 
 const placesGeoJSON = {
   "type": "FeatureCollection",
@@ -41,25 +44,32 @@ let placesLayer = new VectorLayer({
   })
 });
 
-fetch("http://localhost:3100/places?format=geojson").then(
-  (response) => {
-    return response.json()
-  }
-).then(
-  (jsonResponse) => {
+// fetch("http://localhost:3100/places?format=geojson").then(
+//   (response) => {
+//     return response.json()
+//   }
+// ).then(
+//   (jsonResponse) => {
 
-    console.log("jsonResponse nya", jsonResponse)
-    placesLayer.setSource(
-      new VectorSource({
-        features: new GeoJSON().readFeatures(jsonResponse),
-      })
-    )
-  }
-)
+//     console.log("jsonResponse nya", jsonResponse)
+//     placesLayer.setSource(
+//       new VectorSource({
+//         features: new GeoJSON().readFeatures(jsonResponse),
+//       })
+//     )
+//   }
+// )
 
 const thematicLayer = new VectorLayer({
-  source: new VectorSource({
-    // features: new GeoJSON().readFeatures(placesGeoJSON),
+  source: new VectorSource(),
+  style: new Style({
+    fill: new Fill({
+      color: [255, 255, 255, 0.5]
+    }),
+    stroke: new Stroke({
+      color: [0, 153, 255, 1],
+      width: 1,
+    }),
   })
 })
 
@@ -69,7 +79,6 @@ fetch("http://localhost:5173/bataskecjabar.geojson").then(
   }
 ).then(
   (jsonResponse) => {
-
     thematicLayer.setSource(
       new VectorSource({
         features: new GeoJSON().readFeatures(jsonResponse),
